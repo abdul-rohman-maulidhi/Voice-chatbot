@@ -1,0 +1,5 @@
+# Python 3.10.0
+# File: requirements.txt (uses command 'pip install requirements.txt')
+wikipedia
+pyttsx3
+speechrecognition
