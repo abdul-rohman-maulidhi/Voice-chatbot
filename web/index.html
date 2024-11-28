@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voicebot</title>
+    <script src="/eel.js"></script>
+    <script src="script.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-100 h-screen flex flex-col items-center justify-center">
+    <div class="w-3/4 bg-white shadow-md rounded p-6">
+      <h1 class="text-2xl font-bold mb-4 text-center">Voicebot</h1>
+      <div id="chatbox" class="h-64 overflow-y-scroll border p-4 mb-4 bg-gray-50 rounded"></div>
+      <div class="flex items-center space-x-4">
+        <input id="user-input" type="text" class="flex-grow border rounded p-2" placeholder="Type your message here..." />
+        <button id="send-btn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Send</button>
+        <button id="voice-btn" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">🎤 Voice</button>
+      </div>
+    </div>
+  </body>
+</html>
