@@ -1,5 +1,7 @@
 # Voice-bot
 
+---
+
 **English**
 
 ### Description
@@ -20,6 +22,8 @@ This Voice Assistant Application is a modern AI-powered chatbot that combines sp
 4. View the conversation history in the chatbox.
 5. Say or type "exit" to close the application or end the interaction.
 This app is perfect for users seeking a friendly and functional assistant to answer queries or provide basic information in real-time.
+
+---
 
 **Bahasa Indonesia**
 
