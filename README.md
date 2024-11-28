@@ -14,7 +14,7 @@ This Voice Assistant Application is a modern AI-powered chatbot that combines sp
 
 ### How to Use:
 
-1. Launch the application by running the Python script (python app.py).
+1. Launch the application by running the Python script (python main.py).
 2. Use the "🎤 Voice" button to speak to the bot. It will listen, process your input, and respond both in text and voice.
 3. Alternatively, type your message into the input box and press the "Send" button to interact.
 4. View the conversation history in the chatbox.
