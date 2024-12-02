@@ -1,0 +1,246 @@
+{
+    "intents": [
+        {
+            "tag": "greeting",
+            "patterns": [
+                "hello", "hi", "hey", "good morning", "good evening", 
+                "howdy", "greetings", "what's up", "sup"
+            ],
+            "responses": [
+                "Hello! How can I help you today?", 
+                "Hi there! What can I do for you?", 
+                "Greetings! How may I assist you?"
+            ]
+        },
+        {
+            "tag": "goodbye",
+            "patterns": [
+                "bye", "goodbye", "see you later", "exit", "quit", 
+                "farewell", "catch you later", "peace out"
+            ],
+            "responses": [
+                "Goodbye! Have a great day!", 
+                "See you next time!", 
+                "Take care and come back soon!"
+            ]
+        },
+        {
+            "tag": "thanks",
+            "patterns": [
+                "thanks", "thank you", "much appreciated", "grateful", 
+                "thank u", "thx", "appreciate it"
+            ],
+            "responses": [
+                "You're welcome!", 
+                "Happy to help!", 
+                "Glad I could assist you!", 
+                "No problem at all!"
+            ]
+        },
+        {
+            "tag": "help",
+            "patterns": [
+                "help", "i need help", "can you help me", 
+                "what can you do", "assistance", "support"
+            ],
+            "responses": [
+                "Sure, I'm here to help! What do you need assistance with?",
+                "I'm ready to help. Please tell me what you're looking for.",
+                "What specific help do you require today?"
+            ]
+        },
+        {
+            "tag": "weather",
+            "patterns": [
+                "what's the weather", "weather today", "forecast", 
+                "temperature", "is it going to rain"
+            ],
+            "responses": [
+                "I can help you with weather information. Could you specify your location?",
+                "To get accurate weather details, please provide your city or region.",
+                "Weather forecasts require a specific location. Which area are you interested in?"
+            ]
+        },
+        {
+            "tag": "time",
+            "patterns": [
+                "what time is it", "current time", "time now", 
+                "can you tell me the time"
+            ],
+            "responses": [
+                "I can help you with the current time. However, I'll need to know your specific time zone.",
+                "To provide the exact time, could you tell me your location?",
+                "Time can vary by location. Which time zone are you in?"
+            ]
+        },
+        {
+            "tag": "personal_info",
+            "patterns": [
+                "who are you", "what are you", "tell me about yourself", 
+                "your name", "your purpose"
+            ],
+            "responses": [
+                "I'm an AI assistant created to help you with various tasks and questions.",
+                "I'm Ai assistant, an AI designed to provide helpful and informative responses.",
+                "I'm an artificial intelligence here to assist you with a wide range of queries."
+            ]
+        },
+        {
+            "tag": "apology",
+            "patterns": [
+                "sorry", "my bad", "i apologize", "excuse me", 
+                "pardon me", "didn't mean to"
+            ],
+            "responses": [
+                "No worries at all!", 
+                "No need to apologize.", 
+                "It's okay, let's move forward.", 
+                "Don't worry about it."
+            ]
+        },
+        {
+            "tag": "joke",
+            "patterns": [
+                "tell me a joke", "make me laugh", "humor", 
+                "something funny", "do you know any jokes"
+            ],
+            "responses": [
+                "Why did the scarecrow win an award? Because he was outstanding in his field!",
+                "I heard that parallel lines have so much in common. It's a shame they'll never meet.",
+                "Why don't scientists trust atoms? Because they make up everything!"
+            ]
+        },
+        {
+            "tag": "calculation",
+            "patterns": [
+                "calculate", "math", "solve", "computation", 
+                "mathematical problem", "do math"
+            ],
+            "responses": [
+                "I'm ready to help you with calculations. What math problem would you like me to solve?",
+                "Mathematical calculations are my specialty. Please provide the details.",
+                "Sure, I can help you solve math problems. What calculation do you need?"
+            ]
+        },
+        {
+            "tag": "news",
+            "patterns": [
+                "latest news", "news update", "what's happening", 
+                "current events", "headlines"
+            ],
+            "responses": [
+                "Here are the latest news updates. What topic are you interested in?",
+                "I can provide news updates. Do you have a specific subject in mind?",
+                "Stay updated! Let me know what kind of news you're looking for."
+            ]
+        },
+        {
+            "tag": "fun_fact",
+            "patterns": [
+                "tell me a fact", "fun fact", "did you know", 
+                "interesting fact", "give me trivia"
+            ],
+            "responses": [
+                "Did you know that honey never spoils? Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3000 years old and still edible!",
+                "Here's a fun fact: A day on Venus is longer than a year on Venus!",
+                "Did you know? Octopuses have three hearts, and two of them stop beating when they swim."
+            ]
+        },
+        {
+            "tag": "quote",
+            "patterns": [
+                "inspire me", "motivation", "quote", 
+                "give me a quote", "words of wisdom"
+            ],
+            "responses": [
+                "Here's a motivational quote: 'The best way to predict the future is to invent it.' – Alan Kay",
+                "Let me inspire you: 'Success is not the key to happiness. Happiness is the key to success.' – Albert Schweitzer",
+                "Here's a thought: 'Do what you can, with what you have, where you are.' – Theodore Roosevelt"
+            ]
+        },
+        {
+            "tag": "food_recommendation",
+            "patterns": [
+                "what should I eat", "food suggestion", "what to eat", 
+                "meal ideas", "recommend a dish"
+            ],
+            "responses": [
+                "How about some pasta or sushi? They're always a good choice!",
+                "Why not try something new like a Thai curry or a Mexican taco?",
+                "Pizza, burger, or salad? Let me know your mood for food!"
+            ]
+        },
+        {
+            "tag": "travel",
+            "patterns": [
+                "travel tips", "travel destinations", "places to visit", 
+                "vacation ideas", "travel advice"
+            ],
+            "responses": [
+                "If you're looking for adventure, how about visiting Iceland or New Zealand?",
+                "For a relaxing vacation, consider the Maldives or Bora Bora!",
+                "Interested in culture and history? Try Italy or Japan!"
+            ]
+        },
+        {
+            "tag": "fitness",
+            "patterns": [
+                "fitness tips", "exercise advice", "workout ideas", 
+                "staying healthy", "physical activity"
+            ],
+            "responses": [
+                "Consistency is key! Try starting with a 30-minute daily walk.",
+                "Strength training twice a week and regular cardio can work wonders!",
+                "Yoga and meditation are great for both your mind and body!"
+            ]
+        },
+        {
+            "tag": "movies",
+            "patterns": [
+                "movie recommendation", "what to watch", "film suggestion", 
+                "suggest a movie", "good movies"
+            ],
+            "responses": [
+                "If you enjoy action, check out 'Mad Max: Fury Road'. For drama, try 'The Shawshank Redemption'.",
+                "Looking for a laugh? 'The Grand Budapest Hotel' is a great choice!",
+                "For something thrilling, you might like 'Inception' or 'Gone Girl'."
+            ]
+        },
+        {
+            "tag": "music",
+            "patterns": [
+                "song recommendation", "music suggestion", "what to listen to", 
+                "suggest a song", "good music"
+            ],
+            "responses": [
+                "How about some classics like Queen's 'Bohemian Rhapsody'?",
+                "For chill vibes, try listening to 'Sunflower' by Post Malone.",
+                "Looking for something upbeat? 'Levitating' by Dua Lipa is a great choice!"
+            ]
+        },
+        {
+            "tag": "programming",
+            "patterns": [
+                "coding help", "programming tips", "debugging advice", 
+                "software development", "learn programming"
+            ],
+            "responses": [
+                "What programming language are you working with? I can provide resources or tips!",
+                "Need help debugging? Share your code or error, and I’ll try to assist!",
+                "To learn programming, start with Python or JavaScript. They're beginner-friendly!"
+            ]
+        },
+        {
+            "tag": "sports",
+            "patterns": [
+                "sports news", "sports update", "latest match", 
+                "game results", "sports highlights"
+            ],
+            "responses": [
+                "I can provide the latest sports updates. Which sport are you interested in?",
+                "Looking for game highlights? Let me know the team or match!",
+                "Sports updates coming right up! What event do you want to know about?"
+            ]
+        }
+    ]
+}

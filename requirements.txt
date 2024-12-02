@@ -3,3 +3,7 @@
 wikipedia
 pyttsx3
 speechrecognition
+fuzzywuzzy
+wolframalpha
+requests
+eel

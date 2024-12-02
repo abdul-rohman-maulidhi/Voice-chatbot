@@ -10,7 +10,7 @@ chatbot = AdvancedChatbot()
 @eel.expose
 def get_response(user_input):
     response = chatbot.respond(user_input)
-    chatbot.talk(response)
+    # chatbot.talk(response)
     return response
 
 
@@ -18,7 +18,7 @@ def get_response(user_input):
 def listen_and_respond():
     user_input = chatbot.speech_handler.listen()
     response = chatbot.respond(user_input)
-    chatbot.talk(response)
+    # chatbot.talk(response)
     return {"user_input": user_input, "response": response}
 
 

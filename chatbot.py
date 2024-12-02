@@ -1,7 +1,13 @@
+import json
+from difflib import get_close_matches
 import speech_recognition as sr
 import pyttsx3
+import requests
 import wikipedia
+import wolframalpha
 from abc import ABC, abstractmethod
+from fuzzywuzzy import fuzz  # Untuk pencocokan fuzzy
+from fuzzywuzzy import process
 
 # Abstract Class sebagai interface dasar chatbot
 class ChatbotBase(ABC):
@@ -48,19 +54,51 @@ class SpeechHandler:
 class Chatbot(ChatbotBase):
     def __init__(self):
         self.speech_handler = SpeechHandler()
-
+        self.wolfram_app_id = "2W5T47-QG4EQPYKP6"  # API Wolfram
+        self.wolfram_url = "http://api.wolframalpha.com/v1/result"  # Endpoint Instant Calculator API
+        self.intents = self.load_intents("intents.json")
+        self.threshold = 60
+        
+    def load_intents(self, filepath):
+        try:
+            with open(filepath, "r") as file:
+                return json.load(file)
+        except FileNotFoundError:
+            print(f"File {filepath} not found.")
+            return {"intents": []}
+        
+    def match_intent(self, user_input):
+        user_input = user_input.lower()
+        best_match = None
+        highest_score = 0
+        
+        for intent in self.intents['intents']:
+            for pattern in intent['patterns']:
+                # Calculate similarity score
+                similarity_score = fuzz.partial_ratio(user_input, pattern.lower())
+                if similarity_score > self.threshold and similarity_score > highest_score:
+                    highest_score = similarity_score
+                    best_match = intent
+        
+        return best_match
+        
     def listen(self):
         return self.speech_handler.listen()
+    
+    def generate_response(self, intent):
+        return intent['responses'][0]  # Return the first response as default
 
     def respond(self, text: str):
-        if "wikipedia" in text.lower():
+        matched_intent = self.match_intent(text)
+        
+        if matched_intent:
+            return self.generate_response(matched_intent)
+        elif "wikipedia" in text.lower():
             return self.search_wikipedia(text)
-        elif "hello" in text.lower():
-            return "Hello! How can I assist you today?"
-        elif "how are you" in text.lower():
-            return "I'm just a program, but I'm functioning as expected!"
+        elif "wolfram" in text.lower():
+            return self.search_wolframalpha(text)
         else:
-            return "I can only answer basic queries or fetch information from Wikipedia."
+            return "I can answer basic queries, fetch information from Wikipedia, or use Wolfram Alpha."
 
     def search_wikipedia(self, query: str):
         try:
@@ -75,6 +113,27 @@ class Chatbot(ChatbotBase):
             return "I couldn't find anything on Wikipedia for your query."
         except Exception:
             return "An error occurred while searching Wikipedia."
+    
+    def search_wolframalpha(self, query: str):
+        try:
+            query = query.lower().replace("wolfram", "").strip()
+            if not query:
+                return "Please specify what you want to search on Wolfram Alpha."
+
+            params = {
+                "i": query,  # Query parameter
+                "appid": self.wolfram_app_id,  # API key
+            }
+            response = requests.get(self.wolfram_url, params=params)
+            response.raise_for_status()  # Raise an exception for HTTP errors
+            
+            if response.status_code == 200:
+                return f"Wolfram Alpha result: {response.text}"
+            else:
+                return "Wolfram Alpha couldn't process your request."
+        except requests.exceptions.RequestException as e:
+            return f"An error occurred while connecting to Wolfram Alpha: {e}"
+        
 
     def talk(self, response: str):
         self.speech_handler.talk(response)
