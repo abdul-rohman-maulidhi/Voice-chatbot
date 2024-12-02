@@ -3,7 +3,11 @@
 wikipedia
 pyttsx3
 speechrecognition
+<<<<<<< HEAD
 fuzzywuzzy
 wolframalpha
 requests
 eel
+=======
+eel
+>>>>>>> b0b23fdf2fa09eea01c4c6f27ccc874f92267fff
