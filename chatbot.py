@@ -1,10 +1,8 @@
 import json
-from difflib import get_close_matches
 import speech_recognition as sr
 import pyttsx3
 import requests
 import wikipedia
-import wolframalpha
 from abc import ABC, abstractmethod
 from fuzzywuzzy import fuzz  # Untuk pencocokan fuzzy
 from fuzzywuzzy import process
@@ -95,7 +93,7 @@ class Chatbot(ChatbotBase):
             return self.generate_response(matched_intent)
         elif "wikipedia" in text.lower():
             return self.search_wikipedia(text)
-        elif "wolfram" in text.lower():
+        elif "wolfram alpha" in text.lower():
             return self.search_wolframalpha(text)
         else:
             return "I can answer basic queries, fetch information from Wikipedia, or use Wolfram Alpha."
