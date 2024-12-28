@@ -1,5 +1,5 @@
 import eel
-from chatbot import Chatbot, AdvancedChatbot
+from app.advanced_chatbot import AdvancedChatbot
 
 # Initialize Eel
 eel.init('web')
