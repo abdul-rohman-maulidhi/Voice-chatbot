@@ -1,0 +1,97 @@
+classDiagram
+    direction BT
+    %% Base class for abstraction
+    class ChatbotBase {
+        <<interface>>
+        +listen()
+        +respond(text: str)
+        +talk(response: str)
+    }
+
+    %% Speech handler for audio interaction
+    class SpeechHandler {
+        -engine: pyttsx3.Engine
+        -recognizer: sr.Recognizer
+        -microphone: sr.Microphone
+        +listen() str
+        +talk(response: str)
+    }
+
+    %% Base chatbot class
+    class Chatbot {
+        -speech_handler: SpeechHandler
+        +load_intents(filepath: str) dict
+        +match_intent(user_input: str) dict
+        +generate_response(intent: dict) str
+        +listen() str
+        +respond(text: str) str
+        +talk(response: str)
+    }
+
+    %% Extended advanced chatbot class
+    class AdvancedChatbot {
+        -open_browser: OpenBrowser
+        -wikipedia_api: WikipediaApi
+        -wolframalpha_api: WolframalphaApi
+        -exchange_api: ExchangeApi
+        -joke_api: JokeApi
+        -trivia_api: TriviaApi
+        +respond(text: str) str
+    }
+
+    %% API for fetching exchange rates
+    class ExchangeApi {
+        -exchange_api_url: str
+        +get_exchange_rate(query: str) str
+    }
+
+    %% API for fetching jokes
+    class JokeApi {
+        -joke_api_url: str
+        +get_joke() str
+    }
+
+    %% API for trivia questions
+    class TriviaApi {
+        -current_trivia_answer: str
+        -trivia_api_url: str
+        +fetch_trivia() str
+        +verify_trivia_answer(user_input: str) str
+    }
+
+    %% Wikipedia integration API
+    class WikipediaApi {
+        +search_wikipedia(query: str) str
+    }
+
+    %% Wolfram Alpha integration API
+    class WolframalphaApi {
+        -wolfram_app_id: str
+        -wolfram_url: str
+        +search_wolframalpha(query: str) str
+    }
+
+    %% Handles browser actions
+    class OpenBrowser {
+        +handle_open_browser(text: str) str
+        +open_website(url: str, site_name: str) str
+    }
+
+    %% Relationships and interactions
+    ChatbotBase <|.. Chatbot : Realization/Implementation
+    Chatbot <|-- AdvancedChatbot : Inheritance
+    Chatbot --> SpeechHandler : Aggregation
+    AdvancedChatbot o-- OpenBrowser : Composition
+    AdvancedChatbot o-- WikipediaApi : Composition
+    AdvancedChatbot o-- WolframalphaApi : Composition
+    AdvancedChatbot o-- ExchangeApi : Composition
+    AdvancedChatbot o-- JokeApi : Composition
+    AdvancedChatbot o-- TriviaApi : Composition
+
+    SpeechHandler <.. Chatbot : Dependency
+    OpenBrowser <.. AdvancedChatbot : Dependency
+    WikipediaApi <.. AdvancedChatbot : Dependency
+    WolframalphaApi <.. AdvancedChatbot : Dependency
+    ExchangeApi <.. AdvancedChatbot : Dependency
+    JokeApi <.. AdvancedChatbot : Dependency
+    TriviaApi <.. AdvancedChatbot : Dependency
