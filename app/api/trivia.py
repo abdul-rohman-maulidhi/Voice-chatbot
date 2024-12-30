@@ -5,13 +5,13 @@ from fuzzywuzzy import fuzz
 class TriviaApi:
     def __init__(self):
         self.current_trivia_answer = None
-        self.trivia_api_url = "https://opentdb.com/api.php?amount=1&type=multiple"
+        self.__trivia_api_url = "https://opentdb.com/api.php?amount=1&type=multiple"
         
     def fetch_trivia(self):
         """
         Fetch a random trivia question using Open Trivia DB API.
         """
-        url = self.trivia_api_url
+        url = self.__trivia_api_url
         try:
             response = requests.get(url)
             response.raise_for_status()  # Check for HTTP errors

@@ -8,26 +8,49 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="./style.css" />
   </head>
-  <body class="bg-gradient-to-br from-blue-100 to-purple-100 h-screen flex flex-col items-center justify-center">
-    <div class="w-full max-w-md bg-white shadow-2xl rounded-xl p-6 transform transition-all hover:scale-105">
-      <h1 class="text-3xl font-bold mb-6 text-center text-blue-600 flex items-center justify-center space-x-2">
+  <body class="bg-gradient-to-br from-indigo-300 via-purple-400 to-pink-500 h-screen flex flex-col items-center justify-center">
+    <div class="theme-toggle absolute top-4 right-4 z-10">
+      <button id="theme-toggle" class="p-2 rounded-full transition-colors" aria-label="Toggle theme">
+        <!-- Sun icon -->
+        <svg id="sun-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <!-- Moon icon -->
+        <svg id="moon-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+    </div>
+    <div class="absolute top-0 left-0 w-full h-full">
+      <div class="bg-gradient-to-br from-white/20 to-white/10 w-96 h-96 rounded-full blur-3xl absolute -top-20 -left-20"></div>
+      <div class="bg-gradient-to-br from-white/20 to-white/10 w-80 h-80 rounded-full blur-3xl absolute bottom-10 right-10"></div>
+    </div>
+    <div class="relative w-full max-w-md bg-gradient-to-br from-white to-blue-100 shadow-2xl rounded-xl p-6 transform transition-all hover:scale-105 backdrop-blur-lg">
+      <h1 class="text-3xl font-bold mb-6 text-center text-purple-700 flex items-center justify-center space-x-2">
         <img src="./assets/logo.gif" alt="Logo" class="h-20 w-15" />
-        <span class="pr-5">Voicebot AI</span>
+        <span class="pr-5">Voicebot</span>
       </h1>
-      <div id="chatbox" class="h-64 overflow-y-scroll border-2 border-blue-100 p-4 mb-4 bg-blue-50 rounded-lg scrollbar-hide">
+      <div id="chatbox" class="h-64 overflow-y-scroll border-2 border-purple-200 p-4 mb-4 bg-purple-50 rounded-lg scrollbar-hide">
         <!-- Chat messages will be dynamically added here -->
       </div>
       <div class="flex items-center space-x-4">
-        <input id="user-input" type="text" class="flex-grow border-2 border-blue-200 rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all" placeholder="Type your message here..." />
-        <button id="send-btn" class="bg-blue-500 text-white px-5 py-3 rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all active:btn-click">Send</button>
-        <button id="voice-btn" class="bg-green-500 text-white px-4 py-3 rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition-all active:btn-click">
+        <input id="user-input" type="text" class="flex-grow border-2 border-purple-300 rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all" placeholder="Type your message here..." />
+        <button
+          id="send-btn"
+          class="bg-gradient-to-br from-purple-500 to-indigo-500 text-white px-5 py-3 rounded-full hover:from-indigo-500 hover:to-purple-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all active:btn-click"
+        >
+          Send
+        </button>
+        <button
+          id="voice-btn"
+          class="bg-gradient-to-br from-green-400 to-green-600 text-white px-4 py-3 rounded-full hover:from-green-600 hover:to-green-400 focus:outline-none focus:ring-2 focus:ring-green-400 transition-all active:btn-click"
+        >
           <svg xmlns="http://www.w3.org/2000/svg" class="mic-icon h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
           </svg>
         </button>
       </div>
     </div>
-
     <script src="./script.js"></script>
   </body>
 </html>

@@ -58,11 +58,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 50); // Adjust typing speed
     };
 
-
-
-
-    // Button click animations
+    // Button hover effects
     [sendBtn, voiceBtn].forEach((btn) => {
+        btn.addEventListener("mouseover", () => btn.classList.add("hover:scale-110"));
+        btn.addEventListener("mouseout", () => btn.classList.remove("hover:scale-110"));
         btn.addEventListener("click", () => {
             btn.classList.add("btn-click");
             setTimeout(() => btn.classList.remove("btn-click"), 200);
@@ -96,6 +95,43 @@ document.addEventListener("DOMContentLoaded", () => {
         } finally {
             voiceBtn.classList.remove("mic-active");
         }
+    });
+
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    const sunIcon = document.getElementById('sun-icon');
+    const moonIcon = document.getElementById('moon-icon');
+
+    // Function to set theme
+    const setTheme = (theme) => {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+
+        // Update icons
+        if (theme === 'dark') {
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+        } else {
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+        }
+    };
+
+    // Initialize theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+
+    // Toggle theme on button click
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
+
+        // Add animation effect
+        themeToggle.classList.add('scale-95');
+        setTimeout(() => {
+            themeToggle.classList.remove('scale-95');
+        }, 100);
     });
 
 });

@@ -1,4 +1,4 @@
-/* Custom animations and interactions */
+/* Responsif */
 @keyframes pulse {
   0%,
   100% {
@@ -19,12 +19,82 @@
   }
 }
 
+/* Hover */
 .btn-click {
   transition: all 0.2s ease;
   transform: scale(0.95);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .mic-active .mic-icon {
   animation: micWave 0.5s infinite;
+}
+
+/* Theme related styles */
+:root {
+  --bg-gradient-light: linear-gradient(to bottom right, #e0e7ff, #e9d5ff, #fbcfe8);
+  --bg-gradient-dark: linear-gradient(to bottom right, #1e1b4b, #4c1d95, #831843);
+  --chat-bg-light: #f5f3ff;
+  --chat-bg-dark: #1f2937;
+  --text-light: #6b21a8;
+  --text-dark: #e9d5ff;
+}
+
+/* Dark theme styles */
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+[data-theme="dark"] body {
+  background: var(--bg-gradient-dark);
+}
+
+[data-theme="dark"] .bg-gradient-to-br.from-white.to-blue-100 {
+  background: linear-gradient(to bottom right, #1f2937, #1e1b4b);
+}
+
+[data-theme="dark"] #chatbox {
+  background-color: var(--chat-bg-dark);
+  border-color: #4b5563;
+}
+
+[data-theme="dark"] .text-purple-700 {
+  color: var(--text-dark);
+}
+
+[data-theme="dark"] #user-input {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #e5e7eb;
+}
+
+[data-theme="dark"] #user-input::placeholder {
+  color: #9ca3af;
+}
+
+[data-theme="dark"] .bg-gray-200 {
+  background-color: #374151;
+  color: #e5e7eb;
+}
+
+[data-theme="dark"] #theme-toggle {
+  color: #e5e7eb;
+}
+
+/* Theme toggle button styles */
+.theme-toggle button {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+}
+
+.theme-toggle button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .theme-toggle button {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .theme-toggle button:hover {
+  background-color: rgba(0, 0, 0, 0.3);
 }

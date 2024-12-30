@@ -5,6 +5,7 @@ import requests
 import wikipedia
 import random
 import webbrowser
+import pandas as pd
 from abc import ABC, abstractmethod
 from fuzzywuzzy import fuzz
 
@@ -65,7 +66,10 @@ class Chatbot(ChatbotBase):
         
         self.current_trivia_answer = None
         self.trivia_api_url = "https://opentdb.com/api.php?amount=1&type=multiple"
-        
+
+        # Load CSV file containing city data
+        self.city_data = pd.read_csv("/mnt/data/worldcities.csv")
+
     def load_intents(self, filepath):
         try:
             with open(filepath, "r") as file:
@@ -118,13 +122,12 @@ class Chatbot(ChatbotBase):
             return self.get_joke()
         elif "trivia" in text.lower() or "quiz" in text.lower():
             return self.fetch_trivia()
+        elif "weather" in text.lower() or "cuaca" in text.lower():
+            return self.get_weather(text)
         else:
             return "Use \"help\" to see more information"
         
     def handle_open_browser(self, text: str):
-        """
-        Handles requests to open popular websites in the browser.
-        """
         if "youtube" in text.lower():
             return self.open_website("https://www.youtube.com", "YouTube")
         elif "maps" in text.lower():
@@ -135,9 +138,6 @@ class Chatbot(ChatbotBase):
             return "I couldn't find the specified site. Please say 'open browser YouTube', 'open browser Maps', or 'open browser Classroom'."
         
     def open_website(self, url, site_name):
-        """
-        Open a website in the default web browser.
-        """
         try:
             webbrowser.open(url)
             return f"Opening {site_name} in your browser..."
@@ -186,11 +186,9 @@ class Chatbot(ChatbotBase):
             if len(words) >= 4:
                 target_currency = words[-1].upper()
                 
-                # Fetch data from API
                 response = requests.get(self.exchange_api_url)
                 data = response.json()
                 
-                # Check if the target currency exists in the rates
                 if target_currency in data["rates"]:
                     rate = data["rates"][target_currency]
                     return f"The exchange rate from USD to {target_currency} is {rate:.2f}."
@@ -202,11 +200,10 @@ class Chatbot(ChatbotBase):
             return f"An error occurred while fetching exchange rates: {e}"
         
     def get_joke(self):
-        # Mengambil lelucon dari Joke API
         url = self.joke_api_url
         try:
             response = requests.get(url)
-            response.raise_for_status()  # Raise exception untuk error HTTP
+            response.raise_for_status()
             joke = response.json()
             if joke["type"] == "single":
                 return joke["joke"]
@@ -216,13 +213,10 @@ class Chatbot(ChatbotBase):
             return f"Sorry, I couldn't fetch a joke right now. Error: {e}"
         
     def fetch_trivia(self):
-        """
-        Fetch a random trivia question using Open Trivia DB API.
-        """
         url = self.trivia_api_url
         try:
             response = requests.get(url)
-            response.raise_for_status()  # Check for HTTP errors
+            response.raise_for_status()
             trivia_data = response.json()
 
             if trivia_data["response_code"] == 0:
@@ -231,7 +225,6 @@ class Chatbot(ChatbotBase):
                 options = question["incorrect_answers"] + [question["correct_answer"]]
                 random.shuffle(options)
 
-                # Save the correct answer for verification
                 self.current_trivia_answer = question["correct_answer"]
 
                 trivia_response = f"Here's a trivia question: {question_text} "
@@ -242,18 +235,70 @@ class Chatbot(ChatbotBase):
         except requests.exceptions.RequestException as e:
             return f"An error occurred while fetching trivia: {e}"
 
+    def get_weather(self, query):
+        try:
+            # Cari kota di CSV
+            query = query.lower().replace("weather", "").replace("cuaca", "").strip()
+            city_row = self.city_data[self.city_data['city_ascii'].str.lower() == query]
+
+            if city_row.empty:
+                return "I couldn't find the location. Please specify a valid city."
+
+            latitude = city_row.iloc[0]['lat']
+            longitude = city_row.iloc[0]['lng']
+
+            # Panggil API Open-Meteo
+            url = f"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true"
+            response = requests.get(url)
+            response.raise_for_status()
+            weather_data = response.json()
+
+            # Ambil informasi cuaca
+            current_weather = weather_data["current_weather"]
+            temperature = current_weather["temperature"]
+            windspeed = current_weather["windspeed"]
+            weather_code = current_weather["weathercode"]
+
+            # Dekripsi kode cuaca
+            weather_descriptions = {
+                0: "Clear sky",
+                1: "Mainly clear",
+                2: "Partly cloudy",
+                3: "Overcast",
+                45: "Fog",
+                48: "Depositing rime fog",
+                51: "Drizzle: Light",
+                53: "Drizzle: Moderate",
+                55: "Drizzle: Dense intensity",
+                61: "Rain: Slight",
+                63: "Rain: Moderate",
+                65: "Rain: Heavy intensity",
+                71: "Snow fall: Slight",
+                73: "Snow fall: Moderate",
+                75: "Snow fall: Heavy intensity",
+                80: "Rain showers: Slight",
+                81: "Rain showers: Moderate",
+                82: "Rain showers: Violent",
+                95: "Thunderstorm: Slight",
+                96: "Thunderstorm: Moderate",
+                99: "Thunderstorm: Severe"
+            }
+
+            weather_status = weather_descriptions.get(weather_code, "Unknown weather condition")
+
+            return (f"The current weather in {query.title()} is {temperature}°C with a windspeed of {windspeed} km/h. "
+                    f"Condition: {weather_status}.")
+        except requests.exceptions.RequestException as e:
+            return f"An error occurred while fetching the weather: {e}"
+
     def verify_trivia_answer(self, user_input):
-        """
-        Verifies if the user's answer matches the correct trivia answer.
-        """
         if fuzz.ratio(user_input.lower(), self.current_trivia_answer.lower()) > 80:
             response = "Correct! Well done!"
         else:
             response = f"Sorry, that's incorrect. The correct answer was: {self.current_trivia_answer}."
         
-        self.current_trivia_answer = None  # Reset trivia state after verifying the answer
+        self.current_trivia_answer = None
         return response
-
 
     def talk(self, response: str):
         self.speech_handler.talk(response)

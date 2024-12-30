@@ -3,8 +3,8 @@ import requests
 class WolframalphaApi:
     
     def __init__(self):
-        self.wolfram_app_id = "2W5T47-QG4EQPYKP6"
-        self.wolfram_url = "http://api.wolframalpha.com/v1/result"
+        self.__wolfram_app_id = "2W5T47-QG4EQPYKP6"
+        self.__wolfram_url = "http://api.wolframalpha.com/v1/result"
         
     def search_wolframalpha(self, query: str):
         try:
@@ -14,9 +14,9 @@ class WolframalphaApi:
 
             params = {
                 "i": query,  # Query parameter
-                "appid": self.wolfram_app_id,  # API key
+                "appid": self.__wolfram_app_id,  # API key
             }
-            response = requests.get(self.wolfram_url, params=params)
+            response = requests.get(self.__wolfram_url, params=params)
             response.raise_for_status()  # Raise an exception for HTTP errors
             
             if response.status_code == 200:

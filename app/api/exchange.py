@@ -2,7 +2,7 @@ import requests
 
 class ExchangeApi:
     def __init__(self):
-        self.exchange_api_url = "https://api.exchangerate-api.com/v4/latest/USD"
+        self.__exchange_api_url = "https://api.exchangerate-api.com/v4/latest/USD"
         
     def get_exchange_rate(self, query: str):
         try:
@@ -13,7 +13,7 @@ class ExchangeApi:
                 target_currency = words[-1].upper()
                 
                 # Fetch data from API
-                response = requests.get(self.exchange_api_url)
+                response = requests.get(self.__exchange_api_url)
                 data = response.json()
                 
                 # Check if the target currency exists in the rates

@@ -21,7 +21,7 @@ class Chatbot(ChatbotBase):
         best_match = None
         highest_score = 0
         threshold = 50
-        intents = self.load_intents("./app/intents.json")
+        intents = self.load_intents("./app/data/intents.json")
         
         for intent in intents['intents']:
             for pattern in intent['patterns']:

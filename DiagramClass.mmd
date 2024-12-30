@@ -36,6 +36,7 @@ classDiagram
         -exchange_api: ExchangeApi
         -joke_api: JokeApi
         -trivia_api: TriviaApi
+        -weather_api: WeatherApi
         +respond(text: str) str
     }
 
@@ -70,6 +71,12 @@ classDiagram
         -wolfram_url: str
         +search_wolframalpha(query: str) str
     }
+    
+    %% Weather integration API
+    class WeatherApi {
+        -city_data: str
+        +get_weather(query: str)
+    }
 
     %% Handles browser actions
     class OpenBrowser {
@@ -78,7 +85,7 @@ classDiagram
     }
 
     %% Relationships and interactions
-    ChatbotBase <|.. Chatbot : Realization/Implementation
+    ChatbotBase <|.. Chatbot : Realization/implementation
     Chatbot <|-- AdvancedChatbot : Inheritance
     Chatbot --> SpeechHandler : Aggregation
     AdvancedChatbot o-- OpenBrowser : Composition
@@ -87,6 +94,7 @@ classDiagram
     AdvancedChatbot o-- ExchangeApi : Composition
     AdvancedChatbot o-- JokeApi : Composition
     AdvancedChatbot o-- TriviaApi : Composition
+    AdvancedChatbot o-- WeatherApi : Composition
 
     SpeechHandler <.. Chatbot : Dependency
     OpenBrowser <.. AdvancedChatbot : Dependency
@@ -95,3 +103,4 @@ classDiagram
     ExchangeApi <.. AdvancedChatbot : Dependency
     JokeApi <.. AdvancedChatbot : Dependency
     TriviaApi <.. AdvancedChatbot : Dependency
+    WeatherApi <.. AdvancedChatbot : Depedency
